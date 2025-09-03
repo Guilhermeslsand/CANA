@@ -1,0 +1,256 @@
+ Lista 1
+ Q.1
+ item a)
+ 2n+3n+4 = O(n²)
+ 5n+4 <= c*n²
+ Podemos colocar assim:
+ 5n+4n <= c*n² - ainda continua menor, então posso fazer
+ 9n <= c*n² - corta n com n de cada lado fica:
+ 9 <= c*n
+ 9/c <= n
+ 
+ item b)
+ n³/100-25n²+100n-7 = Deta(n³) - Limite assintótico ( limite inferior e superior ao mesmo tempo)
+ F(n) = n³/100-25n²+100n-7
+ G(n) = n³
+ F(n) = H(g(n) ?
+ 
+ limite superior:
+ *primeiro, vou retirar aqueles que são negativos.
+1. f(n) = n³/100 + 100n -> posso eliminar o 100 pois teoricamente o que me importa memsmo é a pontência do n,logo:
+2. n³ + 100n <=  -> agora vou deixar todos com a mesma potência de n
+3. n³ + 100n³<= 110n³ -> adicinoei esse 110n³ para ser o limite
+4. n³ + 100n³<= 110n³
+5. 110n³ = O(n³) 
+6. c = 110 e n>= 1
+
+limite inferior:
+ *primeiro, vou retirar aqueles que são positivos, mas não a maior potência.
+1. f(n) =  n³/100-25n²-7 -> Agora vou colocar as potência menos no maior valor abaixo da maior potência  
+3. n³/100-25n²-7n² >=
+3. n³/100- 32n² >= n²/100(n-3200) >= -> se n>= 6400 então (n-3200) é n/2
+4. n²/100 * n/2 >= n³/200
+5. c = 1/200 e n = 6400
+
+item c) 
+log n <= c . n
+n <= 
+
+item d)
+Limite superior, sem igualdade
+f(n) = n³
+g(n) = n²
+n³ <= c*n²
+n <= c
+Isso é um absurdo, pois se c for 1, para qualquer n >= 1 isso não se apica
+
+item e)
+*Somente limite superior sem igualdade
+f(n) = 2n²
+g(n) = n³
+2n² < c * n³
+2 < c * n
+2/c < n
+- Verdadeira. Para c = 2 e para n maiores que 1 isso é verdade 
+
+item f)
+*Limite Inferior
+f(n) = n²/2
+g(n) = n²
+n²/2 >= c * n²
+1/2 = c e n = 1
+
+Questão 2
+item a)
+* x<-23
+comparação: 7 < 1 ? -> falso, então pula para linha 3.
+j = 4
+A[4] = 23 ? -> falso, pula para linha 6
+A[4] < 23 ? -> verdadeiro, então retorna chamando a função por recursão.
+A <- <,17,23,29> 
+7 < 5 ? -> falso, pula para linha 3
+j = (5+7)/2 - arredondado para baixo j = 6
+A[6] = 23 -> verdadeiro, retorna j que é 6.
+
+* x<-6
+1. comparação: 7 < 1 ? -> falso, então pula para linha 3.
+3. j = 4
+4. A[4] = 6 ? -> falso, pula para linha 6
+6. A[4] < 6 ? -> Falso, pula para linha 8
+8 . A[4] > 6 ? -> verdadeiro ,chama o algoritimo por recursão com vetor A[3,5,9]
+1. 3 < 1? ? -> falso, então pula para linha 3.
+3. j <- 2
+4. A[2] = 6 ? -> falso, pula para linha 6
+6. A[2] < 6 ? -> verdadeiro ,chama o algoritimo por recursão com vetor A[3]
+1. 1 < 1? ? -> falso, então pula para linha 3.
+3. j <- 1
+4. A[1] = 6 ? -> falso, pula para linha 6
+6. A[1] < 6 ? -> verdadeiro ,chama o algoritimo por recursão com vetor A[]
+0 < 1? ? -> verdadeiro, retorna -1.
+Encerra o programa.
+
+item c)
+Teorema: O algoritimo B retorna o indice em que o elemento x está posicionado no vetor A ordenado ou retorna -1 se o não se elemento x não estiver no vetor.
+
+Prova: indusão do tamanho do vetor (n)
+
+Base 
+A[] - vetor vazio. O algoritimos não faz nada pois não possui elementos nele.
+
+Hipotese: Teorema para vetor com menos que n elementos
+
+Passo: Suponha n>0, j recebe o valor do indice do meio do vetor. Se A[j] = x, então o elemento x está no vetor, logo retorna corretamente o indice j. Caso A[j] < x, então pelo o fato do vetor está ordenado, sabemos que todos os elementos que estão de A[j] até A[1] serão menor que x, logo podemos ignorar essa parte do vetor, o algoritimo faz uma chamada por recursão, só que dessa vez comparando de A[j+1...n]. Pela hipotese de indução, o algoritimos retorna a posição de x caso ele esteja no vetor, ou -1 caso não esteja. De maneira analoga, se A[j] > x, o algoritimo faz o mesmo processo só que dessa vez com a outra metade do vetor A[1...j-1].
+
+Questão 6
+Busca_Quartenária(A[i...n],x)
+    se n < i então
+        retorna -1
+    j<-(i+n)/2
+    l<-(i+j)/2
+    k<-(n+j)/2
+    se A[j] = x então
+        retorna j
+    se A[j] < x então
+        se A[l] = x então
+            retorna l
+        se A[l] < x então
+            retorna Busca_Quartenária(A[l+1...j-1],x)
+        se A[l] > x então
+            retorna Busca_Quartenária(A[i...l-1],x)
+    se A[j] > x então
+        se A[k] = x então
+            retorna k
+        se A[k] < x então
+            retorna Busca_Quartenária(A[k+1...n],x)
+        se A[k] > x então
+            retorna Busca_Quartenária(A[j+1...k-1],x)
+    
+Questão 7
+Buscar_elem(A[i...n],x
+    se n<i
+        retorna i  
+    j<-(n+i)/2
+    se A[j] = x então
+        Buscar_elem(A[i...j),x)
+        retornar j
+    se A[j] < x então
+        Buscar_elem(A[j+1...n),x)
+    se A[j] > x então
+        Buscar_elem(A[i...j-1),x)
+
+Questão 8
+Merge-sort(A[i...n])
+    se i < n
+        q <- [i+n]/2
+        Merge-sort(A[i...q])
+        Merge-sorte(A[q+1...m])
+        Merge(A[i...n],q))
+        
+Merge(A[i...n],q)
+    s1<-q-i+1
+    s2<-n-q
+    L[1...s1+1]
+    R[1...s2+1]
+    para i = 1 até s1 faça
+        l[i]=A[p+i-1]
+    para j = 1 até s1 faça
+        R[j]=A[q+j]
+    L[s1+1]=infinito
+    R[s2+1]=infinito
+    i<-i
+    j<-1
+    para k<-p até n faça
+        se L[i] <= R[j] então
+            A[k] <- l[i]
+        senão 
+            A[k] <- R[j]
+
+Encontrar_Soma(A[1..n], x)
+    Merge-sort(A[1...n])
+    i<-1
+    j<-n
+    enquanto i<j faça
+        se A[i] + A[j] = x então
+            imprimir "Possui a soma"
+        se A[i] + A[j] > x então
+            j <- j-1
+        se A[i] + A[j] < x então
+            i <- i + 1
+    imprimir "Não possui a soma"
+        
+    comprovar:
+    Teorema do Algoritmo de DC(n)
+    Assumindo que n = b^k
+    
+    Temos que T(n) = a*T(n/b)+f(n) -> f(n) = n^c
+        a = 2 -> 2 chamadas recursivas
+        b = 2-> pois estou sempre divivindo o vetor em 2.
+        a f(n), parte da conquistar, é igual a n elevado a uma constante -> no caso de DC f(n) é f(n/b^i) -> pois dividi por b elvado a altura da arv-1.
+    *Utilizando a arvoré de recursão, temos que:
+    T(n) = a^h + somatório(a^i * f(n/b^1)) de i=0 até h-1.
+        h é a altura da árvore que pode ser obtida olha para camada da última folha que é n/b^h -> h = logb(n)
+        Podemos também substituir f(n/b^i) por (n/b^i)^c.
+    logo:
+    T(n) = a^logb(n) + S(a^i * (n/b^i)^c)
+    T(n) = n^logb(a) + S[(a/b^c)^i * n^c]
+    T(n) = n^logb(a)+ n^c * S[a/b^c)^i] 
+
+Questão 9    
+    Vetor_frequencia(S[1...n])
+        A[] <- S[1...n]
+        Heap_Sort(A[1...n])
+        S'[] // vetor auxiliar para pegar quais os elementos não repetidos de S
+        V'[] // Vetor auxiliar para pegar a frequencia dos elementos de S'
+        V[1...n]
+        j<-1
+        i<-2
+        cont<-1
+        elem <- A[1]
+        enquanto i<=n faça
+            se i = n então
+                S'[j] <- elem
+                V'[j] <- cont
+            se A[i] = elem então
+                cont <- cont + 1
+            se A[i] diferente elem então
+                S'[j] <- elem
+                V'[j] <- cont
+                j <- j+1
+                elem <- A[i]
+            i = i+1
+        i<-1
+        j<-1
+        enquanto i<=n faça
+            indice <- Busca_binária(S'[v],S[i])
+            V[i] = V'[indice]
+            i <- i+1
+        retornar V[1...n]
+    
+Questão 10
+Heap-sort(A[1...n])
+    constroi_heap_min(A[1..n])
+    m<-n
+    enquanto m > 1
+        A[1]<->A[m]
+        m <- m-1
+        descer(1,m)
+    m<-n
+    i<-1
+    enquanto m > [n/2] e i < [n/2] <- piso
+        A[i] <-> A[m]
+        m = m -1
+        i = i + 1
+
+Descer(A,i,n)
+    esq <- 2i
+    dir <- 2i+1
+    min <- esq
+        se esq < n e dir < n
+            se A[esq] > A[dir] então
+                min <- dir
+            se A[min] < A[i]
+                A[min] <-> A[i]
+                Descer(A,min,n)
+                
+            
+

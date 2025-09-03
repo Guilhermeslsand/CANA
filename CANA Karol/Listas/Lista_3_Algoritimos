@@ -1,0 +1,271 @@
+ 1. 
+ Versão normal:
+    Calculo(n)
+        Se n = 1 ou n = 0 ou n = 2 ou n = 3 ou n = 0 
+            p = 0
+        senão
+            a = calculo(n/2)  
+            b = calculo(n/2)+1 
+            c = calculo(n/2)+2
+            p = a + b + c + n
+        retorne p
+Versão Programação dinamica
+    Calculo(n) 
+        f[0] = 0
+        f[1] = 0
+        f[2] = 0
+        f[3] = 0
+        f[4] = 0
+        para i = 5 até n faça
+            f[i] = f[i/2] + f[i/2] + 1 + f[i/2] + 2 + i
+        retorne f[n]
+        
+Com memoização
+    Calculo(f,n)
+    para i <- 0 até n faça
+        f[i] <- -1
+    retorne Calculo-mem
+    
+    Calculo-Mem(f,n)
+        se f[n] >= 0 então
+            retorne f[n]
+        se n<= 4 então
+            f[n] = 0
+        senão
+            f[n] = Calculo-Mem(f,n/2) + Calculo-Mem(f,n/2) + 1 + Calculo-Mem(f,n/2) + 2 + n
+        retorne f[n]
+2.
+F[0] = zero
+f[1] = 1
+f[n] n>= 2 -> fazer um tabela onde armazena a contagem de elementos na maior subsquência 
+
+Seq-Cres-(A,n)
+    novos vetores c[1..n] e s[1...n]
+    faça de j <- 1 até n 
+        c[i] <- 1
+        s[i] <- 0
+        para i <- j-1 até 1 
+            se A[i] < A[j] 
+                c[j] <- MAX(c[j],c[i]+1)
+                s[j] <- i
+    maior <- 0
+    Para i<-1 até n faça
+        se c[i] > x então
+            final <- c[i]
+    Retorna final,s[1...n]
+    
+Print-Seq(A,S,maior,n)
+    i <- n
+    enquanto i > 0
+        imprima A[final]
+        i = S[final]
+        final = i
+        
+Com memoização
+    Seq_Cres(A,n)
+    novo vetor -> c[n]
+    para i <- 0 até n faça
+        C[i] <- 0
+    retorne Seq_Cres_Mem
+    
+    Seq_Cres_Mem(A,C,n)
+        se C[n] > 0 então
+            retorne A[n]
+        q <- 1
+        se A[
+    3 4 2 5 6
+    4 3 3 2 1
+    2 4 4 5 5
+        
+3. Ex("euadoroprogramaçãodinâmica")
+dict(w) = falso ou verdadeiro se existe a palavra no dicionário
+
+primeiro caso:
+S[1] = e
+dict(S[1]) = verdeiro
+texto valido
+
+seugndo caso:
+S[1...2] = eu
+dict(S[1...2]) = verdeiro
+texto valido
+
+4 caso:
+S[1...4] = euad
+dict(S[1...4]) = falso
+texto invalido
+
+Subproblema: encontrar maior sequencia ótima de letras que forma uma frase válida no dicionário.
+ 
+
+euadoroprogramaçãodinâmica
+1|2|1|2|3|4|5|1|2|3|4|5|6|7|8|9|10|11|1|2|3|4|5|6|7|8
+/-/----/----------/-------
+    
+Txto_válido(S,n)
+    novos vetores D[1..n]
+    faça de j <- 1 até n 
+        D[i] <- 0
+        C[i] <- '/'
+    D[1] <- 1
+    Para j<-2 até n faça
+        para i <- j-1 até 1 faça
+            se dict(S[i...j]) = verdadeiro se
+                D[j] <- MAX(D[j],D[j]-1)
+                C[j] <- '-'
+            senão
+                D[j] <- 1
+    x <- 0
+    Para i-> 1 até n faça
+        se C[i] = '/'
+        x <- x + 1
+    se x = n então
+        valido <- falso
+    senão
+        valido <- verdadeiro
+    retorne D[1...n], valido
+
+Imprimir_texto(C,D,n,valido)
+    se valido = verdadeiro
+        imprima D[1]
+        i<-2
+        enquando (i<=n)
+            se D[i] = 1 então
+                imprima "_"->Um espaço
+            senão
+                imprima D[i]
+                i <- i+1
+    senão
+        imprima "Texto não é valido"
+        
+5.Olho aqueles que podem ser palindromos, logo o começo tem que ser igual ao fim Um maior palindromo é aquele que tem um subpalidromo dentro dele.
+
+ARARA
+
+Maior_Palindromo(S,n)
+    nova matriz D[n][n]
+    Para i<-1 até n
+        Para j<- 1 até n
+            se i = j então
+                D[n][n] <- 1
+            senão
+                D[n][n] <- 0
+    Para t <- 2 até n
+        para i <- 1 até n-t
+            j = i + t -1 
+            se S[i] = S[j]
+                D[i][j] = D[i+1][j-1]+2
+            senão
+                D[i][j] = max(D[i+1][j],D[i][j+1])
+    return D[1...i][1...j]
+    
+Print_Seq(S,D,n)
+    i <- 1
+    j <- n
+    Seq[1...n] <- criar novo vetor 
+    enquanto (i<j)
+        se S[i] == S[j]
+            Seq[i] = 1
+            Seq[j] = 1
+        senão
+            se D[i][j] == D[i+1][j]
+                i++
+            senão
+                j--
+4.                
+Soma_Densa(A[1...n])
+    Faça novos vetores D[1...n] e S[1...n]
+    Para i <- 1 até n faça
+        D[i] <- infinito
+        S[i] <- infinito
+    D[1] = 1
+    S[1] = A[1]
+    j <- 1
+    Para i<- 2 até n
+            se A[i] < S[J]
+                se i+1 != D[j] || i-1 != D[j]
+                    j++
+                S[j] <- A[i]
+                D[j] <- i
+    retorne S[1...j]
+                
+6.
+Tabuleiro[4][n]
+Cada quadrado do tabuleiro tem um numero inteiro escrito nele
+2n = pedras
+a)
+ Para termos um coluna válida ou temos a sequencia 1010 na coluna
+ ou temos a sequencia 0101 na coluna. Vou chamar a primeira de tipo 5 e a segunnda de tipo 0. Vou fazer um vetor que armazena os tipos das colunas é um padrão compativel se depois do zero vier o 1 ou depois do 1 vier o zero.
+ Mas também podemos ter tipos de 2 até 5 que correspondem a ter somente uma peça na coluna. Sendo 1 na linha 1, 2 na linha 2, 3 na linha 3 e 4 na linha 4
+ O tipo do Subproblema vai ser igual ao padrão ocorrendo na ultima coluna.
+Tipos:
+-0 que é compativel com todos
+-6:0101
+-1:1000
+-2:0100
+-3:0010
+-4:0001
+-5:1010
+Compatíveis:
+-> 6 com 5,1,3
+-> 1 Com 6,2,3,4
+-> 2 com 1,3,4,5
+-> 3 com 6,1,2,4
+-> 4 com 1,2,3,5
+-> 5 com 6,2,4
+
+Eu olho na coluna todas as possiveis formas de obter e armazeno em vetores, olho qual é o maior e vejo se é possivel fazer a inserção. Se não, pego o outro maior até encontrar.
+Quando eu for colocar na coluna eu olho para o tipo da coluna anterior e verifico na matriz de compatibilidade se é válido fazer a junção na matriz.
+              
+Soma_Tabuleiro(B[1...4][1...n],Comp[1...6][1...6])
+    //Definido que onde tem pedra em Board é 1. Onde não tem pedra é o
+    Faça novos vetores:SomaMax[n] e Tipo[n] 
+    padroes <- 6
+    Para i<-0 até n faça
+        Tipo[i] <- 0
+        SomaMax[i] <- 0
+    para i<-1 até n
+        soma<-0
+        para k <-1 até padroes faça
+            para j<-1 até 4
+                se i >= 5 && B[j][k-4] + B[j][k-2] > soma
+                        soma <- B[j][k-4] + B[j][k-2]
+                        tipo[i] = k
+                senão
+                    se B[k][i] > soma
+                        soma <- AB[i]
+                        tipo[i] = k
+            se comp[tipo[i]][tipo[i-1]] = 1 && > SomaMax[i]
+                SomaMax[i] = SomaMax[i-1] + soma
+    retorne SomaMax[n]
+              
+              
+****************Questões de trabalho em equipe*******************
+2. 
+Fazer um laço para medir todas as possibilidades de soma
+    par k<-n-1 até 1 n=10 k = 8
+        para i<-n até k -> 10
+                somaA = S[k] até S[i] somaB = S[i+1] até S[k] 
+                se somaA <= L
+        
+              
+              
+              
+              
+              
+              
+              
+2. Outrea forma de responder
+Seq_cres_longa(A,n)
+    //V[i] -> maior subseq começando no i
+    V[i] = 1 + max(variando de i+1 até n) {V[j] tal que A[j] > A[i]}
+    Seq_cres_longa(A,n)
+        novos vetores c[1..n] e s[1...n]
+        faça de j <- 1 até n 
+            C[i] <- 0
+        C[n] = 1
+        para j <- n até 1
+            para i <-j-1 até 1
+            se A[i] < A[j] 
+                C[j] <- MAX(c[j],c[i]+1)
+                s[j] <- i
